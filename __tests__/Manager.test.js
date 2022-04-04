@@ -1,4 +1,3 @@
-const { expect } = require("@jest/globals");
 const Manager = require("../lib/Manager");
 
 test("constructor | return Manager's properties name/id/email/officeNumber" , () => {
