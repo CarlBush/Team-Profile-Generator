@@ -1,6 +1,6 @@
 const Employee = require("../lib/Employee");
 
-test("creates employee and verify name,id,email" , () => {
+test("constructor | return Employee's properties name/id/email" , () => {
     const employee = new Employee("Meowzers", 5, "Meowmix@catnip.com")
 
     expect(employee.name).toBe("Meowzers");
