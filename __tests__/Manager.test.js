@@ -1,5 +1,6 @@
 const Manager = require("../lib/Manager");
 
+//CLASS CONSTRUCTOR AND CREATING PROPERTIES
 test("constructor | return Manager's properties name/id/email/officeNumber" , () => {
     const manager = new Manager("Meowzers", 5, "Meowmix@catnip.com",520-123-1234)
 
@@ -10,6 +11,7 @@ test("constructor | return Manager's properties name/id/email/officeNumber" , ()
     expect(manager.officeNumber).toEqual(expect.any(Number));
 });
 
+//GET ROLE METHOD
 test("getRole() | returns Manager's role", () => {
     const manager = new Manager("Meowzers", 5, "Meowmix@catnip.com")
 
