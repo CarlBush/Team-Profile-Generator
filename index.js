@@ -63,6 +63,7 @@ const managerPrompt = () => {
         const {name, id, email, phone} = managerResponses;
         const manager = new Manager (name, id, email, phone)
         teamArray.push(manager);
+        console.log(teamArray);
     });
 };
 
@@ -81,6 +82,7 @@ const employeePrompt = () => {
             type: "input",
             name: "name",
             message: "Please enter the employee's name. (Required)",
+            when: (answer) => answer.role !== "(none)",
             validate: employeeNameInput => {
                 if(employeeNameInput) {
                     return true;
@@ -95,6 +97,7 @@ const employeePrompt = () => {
             type: "input",
             name: "id",
             message: "Please enter the employee's id. (Required)",
+            when: (answer) => answer.role !== "(none)",
             validate: employeeIdInput => {
                 if(employeeIdInput) {
                     return true;
@@ -109,6 +112,7 @@ const employeePrompt = () => {
             type: "input",
             name: "email",
             message: "Please enter the employee's email. (Required)",
+            when: (answer) => answer.role !== "(none)",
             validate: employeeEmailInput => {
                 if(employeeEmailInput) {
                     return true;
@@ -153,11 +157,17 @@ const employeePrompt = () => {
             type: "confirm",
             name: "confirm",
             message: "Would you like to add another employee?",
+            when: (answer) => answer.role !== "(none)",
             default: false
         },
     ])
     .then(employeeResponses =>{
-        const {role, name, id, email, github, school, confirm} = employeeResponses;
+        let {role, name, id, email, github, school, confirm} = employeeResponses;
+        let employee;
+
+        if(confirm === false || role !== "none"){
+            return teamArray;
+        } else {
 
         switch(role){
             case "Engineer":
@@ -168,14 +178,16 @@ const employeePrompt = () => {
         };
 
         teamArray.push(employee);
+        console.log(teamArray);
+        console.log(employee);
 
-        if(confirm = true){
-            return employeePrompt(teamArray);
-        } else {
-            teamArray
+        return employeePrompt(teamArray);
+
         };
     });
 };
 
+
 managerPrompt()
 .then(employeePrompt)
+.then(writeHtmlFile)
