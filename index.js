@@ -1,9 +1,11 @@
 const inquirer = require("inquirer");
 const {writeHtmlFile} = require("./src/generateHtml");
 
-// const Manager = require("../lib/Manager");
-// const Engineer = require("../lib/Engineer");
-// const Intern = require("../lib/Intern");
+const Manager = require("./lib/Manager");
+const Engineer = require("./lib/Engineer");
+const Intern = require("./lib/Intern");
+
+teamArray = [];
 
 //MANAGER PROMPT INITAL QUESTIONS
 const managerPrompt = () => {
@@ -57,9 +59,10 @@ const managerPrompt = () => {
             message: "Please enter the team manager's office phone number.",
         },
     ])
-    .then(responses =>{
-        console.log(responses);
-        writeHtmlFile(responses);
+    .then(managerResponses =>{
+        const {name, id, email, phone} = managerResponses;
+        const manager = new Manager (name, id, email, phone)
+        teamArray.push(manager);
     });
 };
 
@@ -71,7 +74,7 @@ const employeePrompt = () => {
             type: "list",
             name: "role",
             message: "Would you like to add another employee?",
-            choices: ["Engineer", "Intern", "none"]
+            choices: ["Engineer", "Intern", "(none)"]
         },
         // EMPLOYEE'S NAME
         {
@@ -153,8 +156,26 @@ const employeePrompt = () => {
             default: false
         },
     ])
+    .then(employeeResponses =>{
+        const {role, name, id, email, github, school, confirm} = employeeResponses;
+
+        switch(role){
+            case "Engineer":
+                return employee = new Engineer (name, id, email, github)
+        
+            case "Intern":
+                return employee = new Intern (name, id, email, school)
+        };
+
+        teamArray.push(employee);
+
+        if(confirm = true){
+            return employeePrompt(teamArray);
+        } else {
+            teamArray
+        };
+    });
 };
 
-
-//managerPrompt();
-employeePrompt();
+managerPrompt()
+.then(employeePrompt)
