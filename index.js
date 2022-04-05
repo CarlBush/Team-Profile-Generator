@@ -1,11 +1,14 @@
 const inquirer = require("inquirer");
+const {writeHtmlFile} = require("./src/generateHtml");
 
 // const Manager = require("../lib/Manager");
 // const Engineer = require("../lib/Engineer");
 // const Intern = require("../lib/Intern");
 
+//MANAGER PROMPT INITAL QUESTIONS
 const managerPrompt = () => {
     return inquirer.prompt([
+        // MANAGER'S NAME
         {
             type: "input",
             name: "name",
@@ -19,6 +22,7 @@ const managerPrompt = () => {
                 }
             }
         },
+        //MANAGER'S ID
         {
             type: "input",
             name: "id",
@@ -32,6 +36,7 @@ const managerPrompt = () => {
                 }
             }
         },
+        //MANAGER'S EMAIL
         {
             type: "input",
             name: "email",
@@ -45,6 +50,7 @@ const managerPrompt = () => {
                 }
             }
         },
+        //MANAGER'S OFFICE NUMBER
         {
             type: "input",
             name: "phone",
@@ -54,7 +60,10 @@ const managerPrompt = () => {
     ])
     .then(responses =>{
         console.log(responses);
+        writeHtmlFile(responses);
     });
 };
+
+// !! add option enginner or intern
 
 managerPrompt();
