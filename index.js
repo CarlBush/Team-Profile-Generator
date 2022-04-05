@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const {writeHtmlFile} = require("./src/generateHtml");
+const {writeHtmlFile, copyFile} = require("./src/generateHtml");
 
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
@@ -191,3 +191,4 @@ const employeePrompt = () => {
 managerPrompt()
 .then(employeePrompt)
 .then(writeHtmlFile)
+.then(copyFile)

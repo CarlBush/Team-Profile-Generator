@@ -50,7 +50,7 @@ const generateIntern = function (intern) {
 
 
 //FUNCTION TO GENERATE HTML
-function generateHtml(manager){
+function generateHtml(){
     //const{name, id, email, phone} = data;
     return `
     <!DOCTYPE html>
@@ -84,4 +84,8 @@ function writeHtmlFile(responses) {
     return fs.writeFile("./dist/index.html", fileContent);
 };
 
-module.exports = {writeHtmlFile};
+function copyFile() {
+    return fs.copyFile("./src/style.css", "./dist/style.css");
+}
+
+module.exports = {writeHtmlFile, copyFile};
