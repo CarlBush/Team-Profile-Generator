@@ -56,7 +56,6 @@ const managerPrompt = () => {
             name: "phone",
             message: "Please enter the team manager's office phone number.",
         },
-
     ])
     .then(responses =>{
         console.log(responses);
@@ -64,6 +63,98 @@ const managerPrompt = () => {
     });
 };
 
-// !! add option enginner or intern
+//EMPLOYEE PROMPT
+const employeePrompt = () => {
+    return inquirer.prompt([
+        //OPTION TO ADD EMPLOYEE ROLE
+        {
+            type: "list",
+            name: "role",
+            message: "Would you like to add another employee?",
+            choices: ["Engineer", "Intern", "none"]
+        },
+        // EMPLOYEE'S NAME
+        {
+            type: "input",
+            name: "name",
+            message: "Please enter the employee's name. (Required)",
+            validate: employeeNameInput => {
+                if(employeeNameInput) {
+                    return true;
+                } else {
+                    console.log("Please provide the employee's name.")
+                    return false;
+                }
+            }
+        },
+        //EMPLOYEE'S ID
+        {
+            type: "input",
+            name: "id",
+            message: "Please enter the employee's id. (Required)",
+            validate: employeeIdInput => {
+                if(employeeIdInput) {
+                    return true;
+                } else {
+                    console.log("Please provide the employee's id.")
+                    return false;
+                }
+            }
+        },
+        //EMPLOYEE'S EMAIL
+        {
+            type: "input",
+            name: "email",
+            message: "Please enter the employee's email. (Required)",
+            validate: employeeEmailInput => {
+                if(employeeEmailInput) {
+                    return true;
+                } else {
+                    console.log("Please provide the employee's email.")
+                    return false;
+                }
+            }
+        },
+        //ENGINEER'S GITHUB
+        {
+            type: "input",
+            name: "github",
+            message: "Please enter the engineer's github. (Required)",
+            when: (answer) => answer.role === "Engineer",
+            validate: engineerGithubInput => {
+                if(engineerGithubInput) {
+                    return true;
+                } else {
+                    console.log("Please provide the engineer's github.")
+                    return false;
+                }
+            }
+        },
+        //INTERN'S SCHOOLS
+        {
+            type: "input",
+            name: "school",
+            message: "Please enter the intern's school. (Required)",
+            when: (answer) => answer.role === "Intern",
+            validate: internSchoolInput => {
+                if(internSchoolInput) {
+                    return true;
+                } else {
+                    console.log("Please provide the intern's school.")
+                    return false;
+                }
+            }
+        },
+        //ADDING ADDITIONAL EMPLOYEE
+        {
+            type: "confirm",
+            name: "confirm",
+            message: "Would you like to add another employee?",
+            default: false
+        },
+    ])
+};
 
-managerPrompt();
+
+//managerPrompt();
+employeePrompt();
