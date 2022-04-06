@@ -5,13 +5,13 @@ const generateManager = function (manager) {
     return`
     <div class="col-sm-12 col-md-4">
         <div class="employee-header">
-            <h4 class="row justify-content-center ">Carl Bush</h4>
+            <h4 class="row justify-content-center ">${manager.name}</h4>
             <h5 class="row justify-content-center mb-0">Manager</h5>
         </div>
         <div class="employee-body">
             <p class="mb-1"><strong>ID:</strong>${manager.id}</p>
-            <p class="mb-1"><strong>Email:</strong><a href="mailto:${manager.email}">${manager.email}/a></p>
-            <p class="mb-1"><strong>Office Number:</strong>${manager.phone}</p>
+            <p class="mb-1"><strong>Email:</strong><a href="mailto:${manager.email}">${manager.email}</a></p>
+            <p class="mb-1"><strong>Office Number:</strong>${manager.officeNumber}</p>
         </div>
     </div>`
 };
@@ -21,12 +21,12 @@ const generateEngineer = function (engineer) {
     return`
     <div class="col-sm-12 col-md-4">
         <div class="employee-header">
-            <h4 class="row justify-content-center ">Carl Bush</h4>
-            <h5 class="row justify-content-center mb-0">Manager</h5>
+            <h4 class="row justify-content-center ">${engineer.name}</h4>
+            <h5 class="row justify-content-center mb-0">Engineer</h5>
         </div>
         <div class="employee-body">
             <p class="mb-1"><strong>ID:</strong>${engineer.id}</p>
-            <p class="mb-1"><strong>Email:</strong><a href="mailto:${engineer.email}">${engineer.email}/a></p>
+            <p class="mb-1"><strong>Email:</strong><a href="mailto:${engineer.email}">${engineer.email}</a></p>
             <p class="mb-1"><strong>Github:</strong><a href="https://github.com/${engineer.github}">${engineer.github}</a></p>
         </div>
     </div>`
@@ -37,21 +37,50 @@ const generateIntern = function (intern) {
     return`
     <div class="col-sm-12 col-md-4">
         <div class="employee-header">
-            <h4 class="row justify-content-center ">Carl Bush</h4>
-            <h5 class="row justify-content-center mb-0">Manager</h5>
+            <h4 class="row justify-content-center ">${intern.name}</h4>
+            <h5 class="row justify-content-center mb-0">Intern</h5>
         </div>
         <div class="employee-body">
             <p class="mb-1"><strong>ID:</strong>${intern.id}</p>
-            <p class="mb-1"><strong>Email:</strong><a href="mailto:${intern.email}">${intern.email}/a></p>
+            <p class="mb-1"><strong>Email:</strong><a href="mailto:${intern.email}">${intern.email}</a></p>
             <p class="mb-1"><strong>School:</strong>${intern.school}</p>
         </div>
     </div>`
 };
 
+function mergeCards(data) {
+    cardArray = [];
+
+    for(let i = 0; i < data.length; i++){
+        const employee = data[i];
+        console.log(employee);
+        const role = employee.getRole();         
+        
+        switch(role){
+            case "Manager":
+                const managerCard = generateManager(employee)
+                cardArray.push(managerCard);
+                break;
+            
+            case "Engineer":
+                const engineerCard = generateEngineer(employee)
+                cardArray.push(engineerCard);
+                break;
+
+            case "Intern":
+                const internCard = generateIntern(employee)
+                cardArray.push(internCard);  
+                break;  
+        };
+    };
+    const employeeCards = cardArray.join('')
+
+    return employeeCards;
+};
+
 
 //FUNCTION TO GENERATE HTML
-function generateHtml(){
-    //const{name, id, email, phone} = data;
+function generateHtml(employeeCards){ 
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -70,7 +99,8 @@ function generateHtml(){
     
         <main class="container"> 
             <div class ="row justify-content-center mt-4">
-            <!--INSERT CARDS HERE--!>
+            <!--INSERT CARDS HERE-->
+            ${employeeCards}
     
             </div>
         </main>
@@ -88,4 +118,4 @@ function copyFile() {
     return fs.copyFile("./src/style.css", "./dist/style.css");
 }
 
-module.exports = {writeHtmlFile, copyFile};
+module.exports = {writeHtmlFile, copyFile, mergeCards};

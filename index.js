@@ -1,5 +1,5 @@
 const inquirer = require("inquirer");
-const {writeHtmlFile, copyFile} = require("./src/generateHtml");
+const {writeHtmlFile, copyFile, mergeCards} = require("./src/generateHtml");
 
 const Manager = require("./lib/Manager");
 const Engineer = require("./lib/Engineer");
@@ -60,8 +60,8 @@ const managerPrompt = () => {
         },
     ])
     .then(managerResponses =>{
-        const {name, id, email, phone} = managerResponses;
-        const manager = new Manager (name, id, email, phone)
+        const {name, id, email, officeNumber} = managerResponses;
+        const manager = new Manager (name, id, email, officeNumber)
         teamArray.push(manager);
         console.log(teamArray);
     });
@@ -74,7 +74,7 @@ const employeePrompt = () => {
         {
             type: "list",
             name: "role",
-            message: "Would you like to add another employee?",
+            message: "Would you like to add one of the employees?",
             choices: ["Engineer", "Intern", "(none)"]
         },
         // EMPLOYEE'S NAME
@@ -165,30 +165,44 @@ const employeePrompt = () => {
         let {role, name, id, email, github, school, confirm} = employeeResponses;
         let employee;
 
-        if(confirm === false || role !== "none"){
+        switch(role){
+            case "Engineer":
+                employee = new Engineer (name, id, email, github);
+                break;
+        
+            case "Intern":
+                employee = new Intern (name, id, email, school);
+                break;
+        };
+
+        if(employee){
+            teamArray.push(employee);                
+        }
+
+        if(confirm === false || role === "(none)"){
             return teamArray;
         } else {
 
-        switch(role){
-            case "Engineer":
-                return employee = new Engineer (name, id, email, github)
-        
-            case "Intern":
-                return employee = new Intern (name, id, email, school)
-        };
-
-        teamArray.push(employee);
-        console.log(teamArray);
-        console.log(employee);
-
-        return employeePrompt(teamArray);
+            return employeePrompt(teamArray);
 
         };
     });
 };
 
 
+// Promise.resolve()
+// .then(()=> {
+//     return [
+//         new Manager ("a", "a", "a", "a"),
+//         new Engineer ("b", "b", "b", "b"),
+//         new Intern ("c", "c", "c", "c"), 
+//     ];
+// })
+
 managerPrompt()
 .then(employeePrompt)
+.then(teamArray => {
+    return mergeCards(teamArray);
+})
 .then(writeHtmlFile)
 .then(copyFile)
