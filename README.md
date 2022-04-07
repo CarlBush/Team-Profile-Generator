@@ -52,6 +52,7 @@ Command-Line generator that will prompt a series of questions about your employe
 
 * [Video Walkthrough](https://drive.google.com/file/d/1bS4G8fZQlCSD7u4ultYrSPBqXfbDMZ5u/view)
 
+<kbd>![Alt Text](https://github.com/CarlBush/Team-Profile-Generator/blob/main/media/Team%20Profile%20Generator.gif)</kbd>
             
 ## Questions
 
