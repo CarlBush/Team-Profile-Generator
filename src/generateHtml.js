@@ -9,9 +9,9 @@ const generateManager = function (manager) {
             <h5 class="row justify-content-center mb-0">Manager</h5>
         </div>
         <div class="employee-body">
-            <p class="mb-1"><strong>ID:</strong>${manager.id}</p>
-            <p class="mb-1"><strong>Email:</strong><a href="mailto:${manager.email}">${manager.email}</a></p>
-            <p class="mb-1"><strong>Office Number:</strong>${manager.officeNumber}</p>
+            <p class="mb-1"><strong>ID: </strong>${manager.id}</p>
+            <p class="mb-1"><strong>Email: </strong><a href="mailto:${manager.email}">${manager.email}</a></p>
+            <p class="mb-1"><strong>Office Number: </strong>${manager.officeNumber}</p>
         </div>
     </div>`
 };
@@ -25,9 +25,9 @@ const generateEngineer = function (engineer) {
             <h5 class="row justify-content-center mb-0">Engineer</h5>
         </div>
         <div class="employee-body">
-            <p class="mb-1"><strong>ID:</strong>${engineer.id}</p>
-            <p class="mb-1"><strong>Email:</strong><a href="mailto:${engineer.email}">${engineer.email}</a></p>
-            <p class="mb-1"><strong>Github:</strong><a href="https://github.com/${engineer.github}">${engineer.github}</a></p>
+            <p class="mb-1"><strong>ID: </strong>${engineer.id}</p>
+            <p class="mb-1"><strong>Email: </strong><a href="mailto:${engineer.email}">${engineer.email}</a></p>
+            <p class="mb-1"><strong>Github: </strong><a href="https://github.com/${engineer.github}">${engineer.github}</a></p>
         </div>
     </div>`
 };
@@ -41,9 +41,9 @@ const generateIntern = function (intern) {
             <h5 class="row justify-content-center mb-0">Intern</h5>
         </div>
         <div class="employee-body">
-            <p class="mb-1"><strong>ID:</strong>${intern.id}</p>
-            <p class="mb-1"><strong>Email:</strong><a href="mailto:${intern.email}">${intern.email}</a></p>
-            <p class="mb-1"><strong>School:</strong>${intern.school}</p>
+            <p class="mb-1"><strong>ID: </strong>${intern.id}</p>
+            <p class="mb-1"><strong>Email: </strong><a href="mailto:${intern.email}">${intern.email}</a></p>
+            <p class="mb-1"><strong>School: </strong>${intern.school}</p>
         </div>
     </div>`
 };

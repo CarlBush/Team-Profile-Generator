@@ -55,7 +55,7 @@ const managerPrompt = () => {
         //MANAGER'S OFFICE NUMBER
         {
             type: "input",
-            name: "phone",
+            name: "officeNumber",
             message: "Please enter the team manager's office phone number.",
         },
     ])
@@ -64,7 +64,6 @@ const managerPrompt = () => {
         const {name, id, email, officeNumber} = managerResponses;
         const manager = new Manager (name, id, email, officeNumber)
         teamArray.push(manager);
-        console.info(teamArray);
     });
 };
 
