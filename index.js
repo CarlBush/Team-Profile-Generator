@@ -59,11 +59,12 @@ const managerPrompt = () => {
             message: "Please enter the team manager's office phone number.",
         },
     ])
+    //DECONSTRUCT THEN PUSHING THE NEW MANAGER INTO THE ARRAY
     .then(managerResponses =>{
         const {name, id, email, officeNumber} = managerResponses;
         const manager = new Manager (name, id, email, officeNumber)
         teamArray.push(manager);
-        console.log(teamArray);
+        console.info(teamArray);
     });
 };
 
@@ -162,9 +163,11 @@ const employeePrompt = () => {
         },
     ])
     .then(employeeResponses =>{
+        //DECONSTRUCT
         let {role, name, id, email, github, school, confirm} = employeeResponses;
         let employee;
-
+        
+        //NEW ENGINEER OR INTERN BASE ON ROLE SELECTED
         switch(role){
             case "Engineer":
                 employee = new Engineer (name, id, email, github);
@@ -174,12 +177,14 @@ const employeePrompt = () => {
                 employee = new Intern (name, id, email, school);
                 break;
         };
-
+        //PUSH EMPLOYEE IF TRUE TO ARRAY
         if(employee){
             teamArray.push(employee);                
         }
 
-        if(confirm === false || role === "(none)"){
+        //IF SELECTING "(none)" FOR ROLE OR "false/no" FOR CONFIRM, STOP INQURIER
+        //IF SELECTING YES TO EITHER RERUN EMPLOYEEPROMPT
+        if(!confirm || role === "(none)"){
             return teamArray;
         } else {
 
@@ -189,7 +194,9 @@ const employeePrompt = () => {
     });
 };
 
-
+managerPrompt()
+.then(employeePrompt)
+//TROUBLESHOOT
 // Promise.resolve()
 // .then(()=> {
 //     return [
@@ -198,9 +205,6 @@ const employeePrompt = () => {
 //         new Intern ("c", "c", "c", "c"), 
 //     ];
 // })
-
-managerPrompt()
-.then(employeePrompt)
 .then(teamArray => {
     return mergeCards(teamArray);
 })

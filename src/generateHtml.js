@@ -48,12 +48,12 @@ const generateIntern = function (intern) {
     </div>`
 };
 
+//FUNCTION TO JOIN INDIVIDUAL CARDS INTO ONE EMPLOYEE CARD
 function mergeCards(data) {
     cardArray = [];
 
     for(let i = 0; i < data.length; i++){
         const employee = data[i];
-        console.log(employee);
         const role = employee.getRole();         
         
         switch(role){
@@ -79,7 +79,7 @@ function mergeCards(data) {
 };
 
 
-//FUNCTION TO GENERATE HTML
+//FUNCTION TO GENERATE MAIN HTML
 function generateHtml(employeeCards){ 
     return `
     <!DOCTYPE html>
@@ -99,7 +99,6 @@ function generateHtml(employeeCards){
     
         <main class="container"> 
             <div class ="row justify-content-center mt-4">
-            <!--INSERT CARDS HERE-->
             ${employeeCards}
     
             </div>
@@ -109,11 +108,13 @@ function generateHtml(employeeCards){
     </html>`
 };
 
-function writeHtmlFile(responses) {
-    const fileContent = generateHtml(responses);
+//CREATE/OVERWRITE FILE TO "/dist" FOLDER
+function writeHtmlFile(data) {
+    const fileContent = generateHtml(data);
     return fs.writeFile("./dist/index.html", fileContent);
 };
 
+//COPY THE "style.css" AND MOVE TO "/dist"/FOLDER WHEN GENERATING THE "index.html" FILE
 function copyFile() {
     return fs.copyFile("./src/style.css", "./dist/style.css");
 }
